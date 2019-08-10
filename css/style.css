@@ -1,0 +1,179 @@
+body {
+  background:url(http://www.nkxingxh.top/img/b3.jpg);
+  
+  color: #5b5b5b;
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  line-height: 1.2;
+  margin: 0;
+}
+
+
+input {
+  width: 140px;
+  padding: 3px 8px;
+  margin: 10px 1;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+    
+
+* {
+  box-sizing: border-box;
+}
+
+p {
+  padding: 0;
+  margin: 0;
+}
+
+a {
+  color: #1e88e5;
+  text-decoration: none;
+  height: 100%;
+  width: 100%;
+}
+
+a:hover, a:focus {
+  outline: none;
+}
+
+.main_content {
+  background-color: #fff;
+  border: solid 1px #bebebe;
+  box-shadow: 4px 4px 4px 0 rgba(0,0,0,0.08);
+  text-align: center;
+  width: 350px;
+  padding: 12px;
+  margin: 40px auto 0 auto;
+}
+
+.icon {
+  height: 100px;
+  width: 100px;
+  overflow: hidden;
+  margin: 0 auto 10px auto;
+}
+
+.icon > span {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+}
+
+.button {
+  font-size: 16px;
+  font-weight: bold;
+  font-family: "Open Sans", sans-serif;
+  color: #1e88e5;
+  text-transform: uppercase;
+  background: #fff;
+  cursor: pointer;
+  border: 1px solid #1e88e5;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 150px;
+  padding: 8px 14px;
+  margin-bottom: 10px;
+  transition-duration: 0.2s;
+}
+
+.button:hover, .button:focus, .button:active {
+  box-shadow: 0 0px 3px #42a5f5;
+}
+
+.button:focus {
+  outline: none;
+}
+
+.button:active {
+  transform: scale(0.93);
+}
+
+.meta {
+  display: inline-block;
+}
+
+.field_layout {
+  display: table;
+  margin-bottom: 10px;
+}
+
+.field_layout:last-child {
+  margin-bottom: 0;
+}
+
+.label {
+  text-align: right;
+  display: table-cell;
+  width: 75px;
+  padding-right: 10px;
+  vertical-align: top;
+}
+
+.label span {
+  font-weight: bold;
+  display: inline-block;
+  color: #333;
+}
+
+.value {
+  display: table-cell;
+  vertical-align: top;
+  word-break: break-all;
+  text-align: left;
+}
+
+.ad-banner {
+  display: block;
+  margin: auto;
+  width: 468px;
+  height: 60px;
+  padding-top: 10px;
+}
+
+.ad-left {
+  position: absolute; 
+  left: 10px; 
+  top: 80px;
+  height: 600px;
+  width: 300px;
+}
+
+.ad-right {
+  position: absolute; 
+  right: 10px; 
+  top: 80px;
+  height: 600px;
+  width: 300px;
+}
+
+@media screen and (min-width: 500px) {
+  .main_content {
+    width: 500px;
+  }
+  .meta {
+  	margin: 5px 0 0 10px;
+  	vertical-align: top;
+  	max-width: 355px;
+  }
+  .header {
+  	margin-bottom: 0;
+  }
+  .button {
+  	margin-bottom: 0;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .ad-left {
+    display: none !important;
+  }
+  .ad-right {
+    display: none !important;
+  }
+}
