@@ -34,6 +34,10 @@ type:是否直接下载 值：down
 
 pwd:外链密码
 
+info:文件备注
+
+name:文件名（建议仅在无法获取文件名时使用）
+
 ### 直接下载：
 
 无密码：/api.php?url=https://www.lanzous.com/i1aesgj&type=down
