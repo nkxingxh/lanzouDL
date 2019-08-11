@@ -44,8 +44,10 @@ pwd:外链密码
 ### 输出直链：
 
 无密码：/index.php?url=https://www.lanzous.com/i1aesgj
+
        /index.php?id=i1aesgj
 
 有密码：/index.php?url=https://www.lanzous.com/i19pnjc&pwd=1pud
+
        /index.php?id=i19pnjc&pwd=1pud
 
