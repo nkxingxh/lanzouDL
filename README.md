@@ -20,6 +20,10 @@
 
 如果文件需要密码但用户没有输入，会在界面中要求输入密码
 
+请在使用前配置index.php开头部分的配置信息
+
+## API
+
 id:文件ID（即分享地址的后面那一部分，如果地址是http://www.lanzous.com/xxxxxx，那么id就是xxxxxx）
 
 url:蓝奏云外链链接
