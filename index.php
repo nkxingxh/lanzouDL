@@ -78,6 +78,9 @@
             echo("        ");
 
             //获取数据
+            
+            $getData = "?";
+            
             /*
             $getData = "?" . (isset($_GET['id']) ? ("id=" . $_GET['id'] . "&") : "");
             $getData = $getData . (isset($_GET['url']) ? ("url=" . $_GET['url'] . "&") : "");
@@ -157,8 +160,11 @@
             echo("		");
 
             //获取数据
+            
+            $getData = "?";
+            
             /*
-            $getData = "?" . (isset($_GET['id']) ? ("id=" . $_GET['id'] . "&") : "");
+            $getData = (isset($_GET['id']) ? ("id=" . $_GET['id'] . "&") : "");
             $getData = $getData . (isset($_GET['url']) ? ("url=" . $_GET['url'] . "&") : "");
             */
 
