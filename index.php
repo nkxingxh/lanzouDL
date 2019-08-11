@@ -9,190 +9,201 @@
     <!-- meta http-equiv="content-language" content="en" -->
     <meta name="robots" content="index, follow">
 
-<?php
-/**
-* @package Lanzou
-* @author Filmy
-* @version 1.2.2
-* @link https://mlooc.cn
-*/
+    <?php
 
-/*###################################*/
-/*                                   */
-/*            XyunDLs v8             */
-/*                                   */
-/*###################################*/
+    //感谢Filmy开源的lanzouAPI，本人只是在其基础上进行界面优化
+    /**
+     * @package Lanzou
+     * @author Filmy
+     * @version 1.2.2
+     * @link https://mlooc.cn
+     */
 
-$ProgramName = "XyunDLs";           //程序名
-$WebName = "幸运云存储";               //站点名称
-$Version = 8;                       //版本号
-$cnzz = "<script src=\"http://www.admin88.com/mystat.asp?id=52600&logo=11\"></script>";    //统计代码
-$captcha = true ;                   //是否开启验证码
+    /*###################################*/
+    /*                                   */
+    /*            XyunDLs v9             */
+    /*                                   */
+    /*###################################*/
+
+    $ProgramName = "XyunDLs";
+    //程序名
+    $WebName = "幸运云存储";
+    //站点名称
+    $Version = 9.2;
+    //版本号
+    $cnzz = "<script src=\"http://www.admin88.com/mystat.asp?id=52600&logo=11\"></script>";
+    //统计代码
+    $captcha = true ;
+    //是否开启验证码
 
     header('Access-Control-Allow-Origin:*');
     //header('Content-Type:application/json; charset=utf-8');
     //开启session
     session_start();
-    
-   
-if($captcha == true)             //加载验证码
-{   
-    if (empty($_REQUEST['autocode']))        //如果验证码为空
+
+    if (empty($_GET['id']) && empty($_GET['url']) && empty($_REQUEST['pid']))        //判断ID和URL是否为空
     {
-        echo "<title>" . "人机验证" . " - " . $WebName . "</title>" . "<link rel=\"stylesheet\" href=\"css/style.css\">" . "<link rel=\"icon\" href=\"img/icon.png\"  type=\"image/png\">" . "</head>";
-        echo("<body>  ");
-        echo("    <noscript>");
-        echo("        <p>JavaScript seems to be disabled in your Browser settings. Please enabled it or try another browser. Only contact us if this error does not go away: nkxingxh@nkxingxh.top.</p>");
-        echo("    </noscript>");
-        echo("    ");
-        echo("    <div class=\"main_content\">");
-        echo("        <div class=\"meta\">");
-        echo("            ");
-        echo("            <h2>人机验证</h2>");
-        echo("            ");
-        echo("            <div class=\"icon\">");
-        echo("                <span style=\"background-image:url('/img/cloud.png')\"></span>");
-        echo("            </div>");
-        echo("            <br>");
-        echo("		<div class=\"field_layout\">");
-        echo("            <div class=\"label\" id=\"label0\">");
-        echo("                <span>提示</span>");
-        echo("            </div>");
-        echo("            <div class=\"value\">");
-        echo("				<p aria-labelledby=\"branch0\">请输入验证码以继续</p>");
-        echo("            </div>");
-        echo("        </div>");
-        echo("		");
-        echo("        ");
-
-        //获取数据
-        $getData = "?" . (isset($_GET['id']) ? ("id=" . $_GET['id'] . "&") : "");
-        $getData = $getData . (isset($_GET['url']) ? ("url=" . $_GET['url'] . "&") : "");
-        
-        //优先POST获取数据
-        $getData = $getData . (isset($_REQUEST['ipwd']) ? ("pwd=" . strtolower($_POST['ipwd']) . "&") : (isset($_GET['pwd']) ? ("pwd=" . $_GET['pwd'] . "&") : ""));
-        $getData = $getData . (isset($_REQUEST['pid']) ? ("id=" . strtolower($_POST['pid']) . "&") : (isset($_GET['id']) ? ("id=" . $_GET['id'] . "&") : ""));
-        
-        $getData = $getData . (isset($_GET['type']) ? ("type=" . $_GET['type'] . "&") : "");
-        $getData = $getData . (isset($_GET['name']) ? ("name=" . $_GET['name'] . "&") : "");
-        $getData = $getData . (isset($_GET['info']) ? ("info=" . $_GET['info']) : "");
-
-        echo("		<form method=\"post\"  action=\"index.php" . $getData . "\">");
-
-        echo("		<div class=\"field_layout\">");
-        echo("            <div class=\"label\" id=\"label0\">");
-        echo("                <span></span>");
-        echo("            </div>");
-        echo("            <div class=\"value\">");
-        echo("<img border=\"1\" id=\"capthcha_img\" onclick=\"this.src=\'captcha.php?r=\'+Math.random()\" src=\"captcha.php?r=\"" .rand() ." width=\"100\" height=\"30\"  /> <a href=\"javascript:void(0)\" onclick=\"document.getElementById(\'capthcha_img\').src=\'captcha.php?r=\'+Math.random()\"></a>");
-        echo("            </div>");
-        echo("        </div>");
-        echo("		");
-        echo("		<div class=\"field_layout\">");
-        echo("            <div class=\"label\" id=\"label0\">");
-        echo("                <span>验证码</span>");
-        echo("            </div>");
-        echo("            <div class=\"value\">");
-        echo("				<p aria-labelledby=\"branch0\"><input type=\"text\" name=\"autocode\" value=\"\" placeholder=\"请在此输入验证码\"/></p>");
-        echo("            </div>");
-        echo("        </div>");
-        echo("		");
-        echo("        <br>");
-        echo("          <input type=\"submit\"  value=\"确  认\" class=\"button\"/>");
-        echo("		</form>");
-        echo("		");
-        echo("        <br>");
-        echo("        <p aria-labelledby=\"branch1\" align=\"center\">" . $ProgramName . " v" . $Version . " " . $cnzz . "</p>");
-        echo("        <p aria-labelledby=\"branch1\" align=\"center\">Copyright © " . date("Y",time()) . " NKXingXh. </p><p aria-labelledby=\"branch1\" align=\"center\">Powered By ". $ProgramName ."</p>");
-        echo("");
-        echo("        </div>");
-        echo("        ");
-        echo("    </div>");
-        echo("    ");
-        echo("</body>");
-        echo("</html>");
-
-        exit();
-    } 
-    else
-    if (strtolower($_POST['autocode']) !== $_SESSION['authcode'])    //如果验证码错误
-    {
-        echo "<title>" . "人机验证" . " - " . $WebName . "</title>" . "<link rel=\"stylesheet\" href=\"css/style.css\">" . "<link rel=\"icon\" href=\"img/icon.png\"  type=\"image/png\">" . "</head>";
-        echo("<body>  ");
-        echo("    <noscript>");
-        echo("        <p>JavaScript seems to be disabled in your Browser settings. Please enabled it or try another browser. Only contact us if this error does not go away: nkxingxh@nkxingxh.top.</p>");
-        echo("    </noscript>");
-        echo("    ");
-        echo("    <div class=\"main_content\">");
-        echo("        <div class=\"meta\">");
-        echo("            ");
-        echo("            <h2>人机验证</h2>");
-        echo("            ");
-        echo("            <div class=\"icon\">");
-        echo("                <span style=\"background-image:url('/img/cloud.png')\"></span>");
-        echo("            </div>");
-        echo("            <br>");
-        echo("        ");
-        echo("		<div class=\"field_layout\">");
-        echo("            <div class=\"label\" id=\"label0\">");
-        echo("                <span>提示</span>");
-        echo("            </div>");
-        echo("            <div class=\"value\">");
-        echo("				<p aria-labelledby=\"branch0\">验证码错误</p>");
-        echo("            </div>");
-        echo("        </div>");
-        echo("		");
-
-        //获取数据
-        $getData = "?" . (isset($_GET['id']) ? ("id=" . $_GET['id'] . "&") : "");
-        $getData = $getData . (isset($_GET['url']) ? ("url=" . $_GET['url'] . "&") : "");
-        
-        //优先POST获取数据
-        $getData = $getData . (isset($_REQUEST['ipwd']) ? ("pwd=" . strtolower($_POST['ipwd']) . "&") : (isset($_GET['pwd']) ? ("pwd=" . $_GET['pwd'] . "&") : ""));
-        $getData = $getData . (isset($_REQUEST['pid']) ? ("id=" . strtolower($_POST['pid']) . "&") : (isset($_GET['id']) ? ("id=" . $_GET['id'] . "&") : ""));
-        
-        $getData = $getData . (isset($_GET['type']) ? ("type=" . $_GET['type'] . "&") : "");
-        $getData = $getData . (isset($_GET['name']) ? ("name=" . $_GET['name'] . "&") : "");
-        $getData = $getData . (isset($_GET['info']) ? ("info=" . $_GET['info']) : "");
-
-        echo("		<form method=\"post\"  action=\"index.php" . $getData . "\">");
-        echo("		<div class=\"field_layout\">");
-        echo("            <div class=\"label\" id=\"label0\">");
-        echo("                <span></span>");
-        echo("            </div>");
-        echo("            <div class=\"value\">");
-        echo("<img border=\"1\" id=\"capthcha_img\" onclick=\"this.src=\'captcha.php?r=\'+Math.random()\" src=\"captcha.php?r=\"" .rand() ." width=\"100\" height=\"30\"  /> <a href=\"javascript:void(0)\" onclick=\"document.getElementById(\'capthcha_img\').src=\'captcha.php?r=\'+Math.random()\"></a>");
-        echo("            </div>");
-        echo("        </div>");
-        echo("		");
-        echo("		<div class=\"field_layout\">");
-        echo("            <div class=\"label\" id=\"label0\">");
-        echo("                <span>验证码</span>");
-        echo("            </div>");
-        echo("            <div class=\"value\">");
-        echo("				<p aria-labelledby=\"branch0\"><input type=\"text\" name=\"autocode\" value=\"\" placeholder=\"请在此输入验证码\" /></p>");
-        echo("            </div>");
-        echo("        </div>");
-        echo("		");
-        echo("        <br>");
-        echo("          <input type=\"submit\"  value=\"确  认\" class=\"button\"/>");
-        echo("		</form>");
-        echo("		");
-        echo("        <br>");
-        echo("        <p aria-labelledby=\"branch1\" align=\"center\">" . $ProgramName . " v" . $Version . " " . $cnzz . "</p>");
-        echo("        <p aria-labelledby=\"branch1\" align=\"center\">Copyright © " . date("Y",time()) . " NKXingXh.</p><p aria-labelledby=\"branch1\" align=\"center\">Powered By ". $ProgramName ."</p>");
-        echo("");
-        echo("        </div>");
-        echo("        ");
-        echo("    </div>");
-        echo("    ");
-        echo("</body>");
-        echo("</html>");
-
-        exit();
+        $FileMsg = "请输入URL或文件ID";
+        $FCode = 403;
     }
 
-}
+    if ($captcha == true && $FCode !== 403)             //加载验证码
+    {
+        if (empty($_REQUEST['autocode']))        //如果验证码为空
+        {
+            echo "<title>" . "人机验证" . " - " . $WebName . "</title>" . "<link rel=\"stylesheet\" href=\"css/style.css\">" . "<link rel=\"icon\" href=\"img/icon.png\"  type=\"image/png\">" . "</head>";
+            echo("<body>  ");
+            echo("    <noscript>");
+            echo("        <p>JavaScript seems to be disabled in your Browser settings. Please enabled it or try another browser. Only contact us if this error does not go away: nkxingxh@nkxingxh.top.</p>");
+            echo("    </noscript>");
+            echo("    ");
+            echo("    <div class=\"main_content\">");
+            echo("        <div class=\"meta\">");
+            echo("            ");
+            echo("            <h2>人机验证</h2>");
+            echo("            ");
+            echo("            <div class=\"icon\">");
+            echo("                <span style=\"background-image:url('/img/cloud.png')\"></span>");
+            echo("            </div>");
+            echo("            <br>");
+            echo("		<div class=\"field_layout\">");
+            echo("            <div class=\"label\" id=\"label0\">");
+            echo("                <span>提示</span>");
+            echo("            </div>");
+            echo("            <div class=\"value\">");
+            echo("				<p aria-labelledby=\"branch0\">请输入验证码以继续</p>");
+            echo("            </div>");
+            echo("        </div>");
+            echo("		");
+            echo("        ");
+
+            //获取数据
+            $getData = "?" . (isset($_GET['id']) ? ("id=" . $_GET['id'] . "&") : "");
+            $getData = $getData . (isset($_GET['url']) ? ("url=" . $_GET['url'] . "&") : "");
+
+            //优先POST获取数据
+            $getData = $getData . (isset($_REQUEST['ipwd']) ? ("pwd=" . strtolower($_POST['ipwd']) . "&") : (isset($_GET['pwd']) ? ("pwd=" . $_GET['pwd'] . "&") : ""));
+            $getData = $getData . (isset($_REQUEST['pid']) ? ("id=" . strtolower($_POST['pid']) . "&") : (isset($_GET['id']) ? ("id=" . $_GET['id'] . "&") : ""));
+
+            $getData = $getData . (isset($_GET['type']) ? ("type=" . $_GET['type'] . "&") : "");
+            $getData = $getData . (isset($_GET['name']) ? ("name=" . $_GET['name'] . "&") : "");
+            $getData = $getData . (isset($_GET['info']) ? ("info=" . $_GET['info']) : "");
+
+            echo("		<form method=\"post\"  action=\"index.php" . $getData . "\">");
+
+            echo("		<div class=\"field_layout\">");
+            echo("            <div class=\"label\" id=\"label0\">");
+            echo("                <span></span>");
+            echo("            </div>");
+            echo("            <div class=\"value\">");
+            echo("<img border=\"1\" id=\"capthcha_img\" onclick=\"this.src=\'captcha.php?r=\'+Math.random()\" src=\"captcha.php?r=\"" .rand() ." width=\"100\" height=\"30\"  /> <a href=\"javascript:void(0)\" onclick=\"document.getElementById(\'capthcha_img\').src=\'captcha.php?r=\'+Math.random()\"></a>");
+            echo("            </div>");
+            echo("        </div>");
+            echo("		");
+            echo("		<div class=\"field_layout\">");
+            echo("            <div class=\"label\" id=\"label0\">");
+            echo("                <span>验证码</span>");
+            echo("            </div>");
+            echo("            <div class=\"value\">");
+            echo("				<p aria-labelledby=\"branch0\"><input type=\"text\" name=\"autocode\" value=\"\" placeholder=\"请在此输入验证码\"/></p>");
+            echo("            </div>");
+            echo("        </div>");
+            echo("		");
+            echo("        <br>");
+            echo("          <input type=\"submit\"  value=\"确  认\" class=\"button\"/>");
+            echo("		</form>");
+            echo("		");
+            echo("        <br>");
+            echo("        <p aria-labelledby=\"branch1\" align=\"center\">" . $ProgramName . " v" . $Version . " " . $cnzz . "</p>");
+            echo("        <p aria-labelledby=\"branch1\" align=\"center\">Copyright © " . date("Y",time()) . " NKXingXh. </p><p aria-labelledby=\"branch1\" align=\"center\">Powered By ". $ProgramName ."</p>");
+            echo("");
+            echo("        </div>");
+            echo("        ");
+            echo("    </div>");
+            echo("    ");
+            echo("</body>");
+            echo("</html>");
+
+            exit();
+        } else
+            if (strtolower($_POST['autocode']) !== $_SESSION['authcode'])    //如果验证码错误
+        {
+            echo "<title>" . "人机验证" . " - " . $WebName . "</title>" . "<link rel=\"stylesheet\" href=\"css/style.css\">" . "<link rel=\"icon\" href=\"img/icon.png\"  type=\"image/png\">" . "</head>";
+            echo("<body>  ");
+            echo("    <noscript>");
+            echo("        <p>JavaScript seems to be disabled in your Browser settings. Please enabled it or try another browser. Only contact us if this error does not go away: nkxingxh@nkxingxh.top.</p>");
+            echo("    </noscript>");
+            echo("    ");
+            echo("    <div class=\"main_content\">");
+            echo("        <div class=\"meta\">");
+            echo("            ");
+            echo("            <h2>人机验证</h2>");
+            echo("            ");
+            echo("            <div class=\"icon\">");
+            echo("                <span style=\"background-image:url('/img/cloud.png')\"></span>");
+            echo("            </div>");
+            echo("            <br>");
+            echo("        ");
+            echo("		<div class=\"field_layout\">");
+            echo("            <div class=\"label\" id=\"label0\">");
+            echo("                <span>提示</span>");
+            echo("            </div>");
+            echo("            <div class=\"value\">");
+            echo("				<p aria-labelledby=\"branch0\">验证码错误</p>");
+            echo("            </div>");
+            echo("        </div>");
+            echo("		");
+
+            //获取数据
+            $getData = "?" . (isset($_GET['id']) ? ("id=" . $_GET['id'] . "&") : "");
+            $getData = $getData . (isset($_GET['url']) ? ("url=" . $_GET['url'] . "&") : "");
+
+            //优先POST获取数据
+            $getData = $getData . (isset($_REQUEST['ipwd']) ? ("pwd=" . strtolower($_POST['ipwd']) . "&") : (isset($_GET['pwd']) ? ("pwd=" . $_GET['pwd'] . "&") : ""));
+            $getData = $getData . (isset($_REQUEST['pid']) ? ("id=" . strtolower($_POST['pid']) . "&") : (isset($_GET['id']) ? ("id=" . $_GET['id'] . "&") : ""));
+
+            $getData = $getData . (isset($_GET['type']) ? ("type=" . $_GET['type'] . "&") : "");
+            $getData = $getData . (isset($_GET['name']) ? ("name=" . $_GET['name'] . "&") : "");
+            $getData = $getData . (isset($_GET['info']) ? ("info=" . $_GET['info']) : "");
+
+            echo("		<form method=\"post\"  action=\"index.php" . $getData . "\">");
+            echo("		<div class=\"field_layout\">");
+            echo("            <div class=\"label\" id=\"label0\">");
+            echo("                <span></span>");
+            echo("            </div>");
+            echo("            <div class=\"value\">");
+            echo("<img border=\"1\" id=\"capthcha_img\" onclick=\"this.src=\'captcha.php?r=\'+Math.random()\" src=\"captcha.php?r=\"" .rand() ." width=\"100\" height=\"30\"  /> <a href=\"javascript:void(0)\" onclick=\"document.getElementById(\'capthcha_img\').src=\'captcha.php?r=\'+Math.random()\"></a>");
+            echo("            </div>");
+            echo("        </div>");
+            echo("		");
+            echo("		<div class=\"field_layout\">");
+            echo("            <div class=\"label\" id=\"label0\">");
+            echo("                <span>验证码</span>");
+            echo("            </div>");
+            echo("            <div class=\"value\">");
+            echo("				<p aria-labelledby=\"branch0\"><input type=\"text\" name=\"autocode\" value=\"\" placeholder=\"请在此输入验证码\" /></p>");
+            echo("            </div>");
+            echo("        </div>");
+            echo("		");
+            echo("        <br>");
+            echo("          <input type=\"submit\"  value=\"确  认\" class=\"button\"/>");
+            echo("		</form>");
+            echo("		");
+            echo("        <br>");
+            echo("        <p aria-labelledby=\"branch1\" align=\"center\">" . $ProgramName . " v" . $Version . " " . $cnzz . "</p>");
+            echo("        <p aria-labelledby=\"branch1\" align=\"center\">Copyright © " . date("Y",time()) . " NKXingXh.</p><p aria-labelledby=\"branch1\" align=\"center\">Powered By ". $ProgramName ."</p>");
+            echo("");
+            echo("        </div>");
+            echo("        ");
+            echo("    </div>");
+            echo("    ");
+            echo("</body>");
+            echo("</html>");
+
+            exit();
+        }
+
+    }
     //主程序开始
     $FCode = 0;
     //初始化状态码
@@ -427,67 +438,63 @@ if($captcha == true)             //加载验证码
         //$tmpn = substr($softName[1], 0,1);
         $tmpn = strcmp($softName[1] ,"<div id=\"b\">");
         //$tmp = strcmp($tmpn ,"<");
-        
-        switch ($FCode)
-        {
+
+        switch ($FCode) {
             case 400:
                 echo "啊哦，出错啦";
                 break;
-                
+
             case 401:
                 echo "请输入分享密码";
                 break;
-            
+
             case 402:
                 echo "文件取消分享了";
                 break;
-                
+
             case 403:
                 echo $ProgramName;
                 break;
-                
+
             case 404:
                 echo "找不到文件";
                 break;
-            
+
             default:
-                if (strcmp($softName[1] ,"<div id=\"b\">") == 0) 
-                {
+                if (strcmp($softName[1] ,"<div id=\"b\">") == 0) {
                     echo "文件下载页" ;
-                } 
-                else
+                } else
                 {
                     echo $softName[1];
                 }
                 break;
         }
-        
-        
+
+
         /*改用Switch语句
-        if ($FCode >= 400) 
+        if ($FCode >= 400)
         {
             if ($FCode == 401)
             {
                 echo isset($_GET['name']) ? $_GET['name'] : "文件下载页";
-            } 
+            }
             else
             {
                 echo "啊哦，出错啦";
             }
-            
-        } 
+        }
         else
-        if (strcmp($softName[1] ,"<div id=\"b\">") == 0) 
+        if (strcmp($softName[1] ,"<div id=\"b\">") == 0)
         {
             echo "文件下载页" ;
-        } 
+        }
         else
         {
             echo $softName[1];
         }*/
-        
+
         echo " - " . $WebName;
-        
+
         ?></title>
 
     <link rel="icon" href="img/<?php
@@ -525,62 +532,59 @@ if($captcha == true)             //加载验证码
 
             <h2><?php
 
-         
-        switch ($FCode)
-        {
-            case 400:
-                echo "出错啦";
-                break;
-                
-            case 401:
-                echo "请输入分享密码";
-                break;
-            
-            case 402:
-                echo "文件取消分享了";
-                break;
-                
-            case 403:
-            echo $ProgramName;
-            break;
-                
-            case 404:
-                echo "找不到文件";
-                break;
-            
-            case  200:
-                if (strcmp($softName[1] ,"<div id=\"b\">") == 0) 
-                {
-                    echo "文件下载页" ;
-                } 
-                else
-                {
-                    echo $softName[1];
+
+                switch ($FCode) {
+                    case 400:
+                        echo "出错啦";
+                        break;
+
+                    case 401:
+                        echo "请输入分享密码";
+                        break;
+
+                    case 402:
+                        echo "文件取消分享了";
+                        break;
+
+                    case 403:
+                        echo $ProgramName;
+                        break;
+
+                    case 404:
+                        echo "找不到文件";
+                        break;
+
+                    case  200:
+                        if (strcmp($softName[1] ,"<div id=\"b\">") == 0) {
+                            echo "文件下载页" ;
+                        } else
+                        {
+                            echo $softName[1];
+                        }
+                        break;
+
+                    default:
+                        echo "出错啦";
+                        break;
                 }
-                break;
-            
-            default:
-                echo "出错啦";
-                break;
-        }
-                
+
                 /*//改用Switch语句
-                if ($FCode >= 400) 
+                if ($FCode >= 400)
                 {
-                    if ($FCode == 401) 
+                    if ($FCode == 401)
                     {
                         echo isset($_GET['name']) ? $_GET['name'] : "文件下载页";
-                    } 
+                    }
                     else
                     {
                         echo "出错啦";
                     }
-                } 
+                }
                 else
                 {
                     echo "文件下载页";
                 }*/
-                
+
                 ?></h2>
 
             <div class="icon">
@@ -670,14 +674,13 @@ if($captcha == true)             //加载验证码
                     echo("<p aria-labelledby=\"branch0\"><input type=\"text\" name=\"ipwd\" value=\"\" placeholder=\"请在此输入分享密码\"/></p>");
                     echo "</div>";
                     echo "</div>";
-                    
+
                     echo("<br>");
                     echo("<input type=\"submit\"  value=\"确  认\" class=\"button\"/>");
                     echo("</form>");
 
-                } 
-                else
-                if($FCode == 403)        //如果是没有ID
+                } else
+                    if ($FCode == 403)        //如果是没有ID
                 {
                     $getData = "?" ;
                     $getData = $getData . (isset($_GET['pwd']) ? ("pwd=" . $_GET['pwd'] . "&") : "");
@@ -694,7 +697,7 @@ if($captcha == true)             //加载验证码
                     echo("<p aria-labelledby=\"branch0\"><input type=\"text\" name=\"pid\" value=\"\" placeholder=\"请在此输入文件ID\" /></p>");
                     echo "</div>";
                     echo "</div>";
-                    
+
                     echo "<div class=\"field_layout\">";
                     echo "<div class=\"label\" id=\"label0\">";
                     echo "<span>密  码</span>";
@@ -703,16 +706,21 @@ if($captcha == true)             //加载验证码
                     echo("<p aria-labelledby=\"branch0\"><input type=\"text\" name=\"ipwd\" value=\"\" placeholder=\"请在此输入分享密码\"/></p>");
                     echo "</div>";
                     echo "</div>";
-                    
+
                     echo("<br>");
                     echo("<input type=\"submit\"  value=\"确  认\" class=\"button\"/>");
                     echo("</form>");
-                }
-                else
+                } else
                 {
-                    $getData = "?" . (isset($_GET['id']) ? ("id=" . $_GET['id'] . "&") : "");
-                    $getData = $getData . (isset($_GET['url']) ? ("url=" . $_GET['url'] . "&") : "");
-                    if (empty($pwd))     //如果密码为空（排除错误密码）
+                    $getData = "?";
+
+                    if ($FCode !== 402)        //如果文件没有取消分享
+                    {
+                        $getData = $getData . (isset($_GET['id']) ? ("id=" . $_GET['id'] . "&") : "");
+                        $getData = $getData . (isset($_GET['url']) ? ("url=" . $_GET['url'] . "&") : "");
+                    }
+
+                    if (empty($pwd) && $FCode !== 402)     //如果密码为空（排除错误密码）且文件没有取消分享
                     {
                         $getData = $getData . (isset($_GET['pwd']) ? ("pwd=" . $_GET['pwd'] . "&") : "");
                     }
@@ -780,50 +788,57 @@ if($captcha == true)             //加载验证码
                 </div>
             </div>
             <!--div class="field_layout">
-                        <div class="label" id="label1">
-                            <span>大小</span>
-                        </div>
-                        <div class="value">
-                            <p aria-labelledby="branch1"><?php echo $filesize;
+                                    <div class="label" id="label1">
+                                        <span>大小</span>
+                                    </div>
+                                    <div class="value">
+                                        <p aria-labelledby="branch1"><?php echo $filesize;
             ?> MB</p>
-                        </div>
-                    </div>
-                    < div class="field_layout">
-                        <div class="label" id="label3">
-                            <span>CRC32</span>
-                        </div>
-                        <div class="value">
-                        <p aria-labelledby="label3">
-                            <span>db802fd3</span>
-                        </p>
-                        </div>
-                    </div>
-                    <div class="field_layout">
-                        <div class="label" id="label4">
-                            <span>DLs</span>
-                        </div>
-                        <div class="value">
-                        <p aria-labelledby="label4">
-                            <span>30,457</span>
-                        </p>
-                        </div>
-                    </div>
-                    <div class="field_layout">
-                        <div class="label" id="label5">
-                            <span>Upload</span>
-                        </div>
-                        <div class="value">
-                            <p aria-labelledby="label5">July 12, 2019 20:41</p>
-                        </div>
-                    </div-->
+                                    </div>
+                                </div>
+                                < div class="field_layout">
+                                    <div class="label" id="label3">
+                                        <span>CRC32</span>
+                                    </div>
+                                    <div class="value">
+                                    <p aria-labelledby="label3">
+                                        <span>db802fd3</span>
+                                    </p>
+                                    </div>
+                                </div>
+                                <div class="field_layout">
+                                    <div class="label" id="label4">
+                                        <span>DLs</span>
+                                    </div>
+                                    <div class="value">
+                                    <p aria-labelledby="label4">
+                                        <span>30,457</span>
+                                    </p>
+                                    </div>
+                                </div>
+                                <div class="field_layout">
+                                    <div class="label" id="label5">
+                                        <span>Upload</span>
+                                    </div>
+                                    <div class="value">
+                                        <p aria-labelledby="label5">July 12, 2019 20:41</p>
+                                    </div>
+                                </div-->
             <br>
             <a href="<?php echo $downUrl;
                 ?>" class="button" target="view_window">下  载</a>
             <br><br><br>
-            <p aria-labelledby=\"branch1\" align=\"center\"><?php echo $ProgramName . " v" . $Version . " " . $cnzz;?></p>
+            <p aria-labelledby=\"branch1\" align=\"center\">
+                <?php echo $ProgramName . " v" . $Version . " " . $cnzz;
+                ?>
+            </p>
             <p aria-labelledby="branch1" align="center">
-                Copyright © <?php date("Y",time()); ?> NKXingXh. </p>
-            <p aria-labelledby="branch1" align="center">Powered By <?php echo $ProgramName;?>
+                Copyright © <?php date("Y",time());
+                ?> NKXingXh.
+            </p>
+            <p aria-labelledby="branch1" align="center">
+                Powered By <?php echo $ProgramName;
+                ?>
             </p>
 
         </div>
