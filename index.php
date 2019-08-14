@@ -78,9 +78,9 @@
             echo("        ");
 
             //获取数据
-            
+
             $getData = "?";
-            
+
             /*
             $getData = "?" . (isset($_GET['id']) ? ("id=" . $_GET['id'] . "&") : "");
             $getData = $getData . (isset($_GET['url']) ? ("url=" . $_GET['url'] . "&") : "");
@@ -160,9 +160,9 @@
             echo("		");
 
             //获取数据
-            
+
             $getData = "?";
-            
+
             /*
             $getData = (isset($_GET['id']) ? ("id=" . $_GET['id'] . "&") : "");
             $getData = $getData . (isset($_GET['url']) ? ("url=" . $_GET['url'] . "&") : "");
@@ -440,7 +440,7 @@
     <?php
     $softName[1] = isset($_GET['name']) ? $_GET['name'] : $softName[1];
     $fileInfo = isset($_GET['info']) ? $_GET['info'] : "暂无";
-    $FileIco = array("apk","doc","exe","jpg","mp3","mp4","pdf","png","ppt","txt","xls","zip");
+    $FileIco = array("7z","apk","doc","exe","jpg","mp3","mp4","pdf","png","ppt","txt","xls","zip");
     //拥有图标的文件扩展名
     ?>
 
@@ -632,16 +632,15 @@
             <?php
 
             if (empty($FileMsg)) {
-                
+
                 if (isset($pwd) && isset($_GET['pwd']))        //如果输入了密码则说明是密码错误，否则是请求太频繁
                 {
                     $FileMsg = "未知错误，请检查密码是否有误！";
-                } 
-                else
+                } else
                 {
                     $FileMsg = "未知错误，可能是请求太频繁！";
                 }
-                
+
                 //$FileMsg = "未知错误，可能是请求太频繁或密码有误！";
             }
 
@@ -733,7 +732,7 @@
                     {
                         $getData = $getData . (isset($_GET['pwd']) ? ("pwd=" . $_GET['pwd'] . "&") : "");
                     }
-                    
+
                     $getData = $getData . (isset($_GET['type']) ? ("type=" . $_GET['type'] . "&") : "");
                     $getData = $getData . (isset($_GET['name']) ? ("name=" . $_GET['name'] . "&") : "");
                     $getData = $getData . (isset($_GET['info']) ? ("info=" . $_GET['info']) : "");
@@ -798,42 +797,42 @@
                 </div>
             </div>
             <!--div class="field_layout">
-                                    <div class="label" id="label1">
-                                        <span>大小</span>
-                                    </div>
-                                    <div class="value">
-                                        <p aria-labelledby="branch1"><?php echo $filesize;
+                                                <div class="label" id="label1">
+                                                    <span>大小</span>
+                                                </div>
+                                                <div class="value">
+                                                    <p aria-labelledby="branch1"><?php echo $filesize;
             ?> MB</p>
-                                    </div>
-                                </div>
-                                < div class="field_layout">
-                                    <div class="label" id="label3">
-                                        <span>CRC32</span>
-                                    </div>
-                                    <div class="value">
-                                    <p aria-labelledby="label3">
-                                        <span>db802fd3</span>
-                                    </p>
-                                    </div>
-                                </div>
-                                <div class="field_layout">
-                                    <div class="label" id="label4">
-                                        <span>DLs</span>
-                                    </div>
-                                    <div class="value">
-                                    <p aria-labelledby="label4">
-                                        <span>30,457</span>
-                                    </p>
-                                    </div>
-                                </div>
-                                <div class="field_layout">
-                                    <div class="label" id="label5">
-                                        <span>Upload</span>
-                                    </div>
-                                    <div class="value">
-                                        <p aria-labelledby="label5">July 12, 2019 20:41</p>
-                                    </div>
-                                </div-->
+                                                </div>
+                                            </div>
+                                            < div class="field_layout">
+                                                <div class="label" id="label3">
+                                                    <span>CRC32</span>
+                                                </div>
+                                                <div class="value">
+                                                <p aria-labelledby="label3">
+                                                    <span>db802fd3</span>
+                                                </p>
+                                                </div>
+                                            </div>
+                                            <div class="field_layout">
+                                                <div class="label" id="label4">
+                                                    <span>DLs</span>
+                                                </div>
+                                                <div class="value">
+                                                <p aria-labelledby="label4">
+                                                    <span>30,457</span>
+                                                </p>
+                                                </div>
+                                            </div>
+                                            <div class="field_layout">
+                                                <div class="label" id="label5">
+                                                    <span>Upload</span>
+                                                </div>
+                                                <div class="value">
+                                                    <p aria-labelledby="label5">July 12, 2019 20:41</p>
+                                                </div>
+                                            </div-->
             <br>
             <!-- a href="<?php echo $downUrl;
             ?>" class="button" target="view_window">下  载</a -->
