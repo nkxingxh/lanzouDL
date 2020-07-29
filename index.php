@@ -457,7 +457,7 @@
                 <?php echo $ProgramName . " v" . $Version . " " . $cnzz;?>
             </p>
             <p aria-labelledby="branch7" align="center">
-                Copyright © <?php date("Y", time());?> NKXingXh.
+                Copyright © <?php echo date("Y", time());?> NKXingXh.
             </p>
             <p aria-labelledby="branch8" align="center">
                 Powered By <?php echo $ProgramName;?>
