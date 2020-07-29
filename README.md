@@ -1,7 +1,7 @@
 # XyunDLs v9.2
 # 蓝奏云下载系统
 
-演示：http://dl.nkxingxh.top:8088/index.php
+无演示
 
 ## 说明
 1. 支持检测文件是否被取消
@@ -10,11 +10,7 @@
 
 3. 支持生成直链或直接下载
 
-4. 增加ios应用在线安装
-
-5. 解析最终直链
-
-6. 添加验证码防止频繁访问
+4. 添加验证码防止频繁访问
 
 ## 使用方法
 
@@ -22,36 +18,20 @@
 
 如果文件需要密码但用户没有输入，会在界面中要求输入密码
 
-请在使用前配置index.php开头部分的配置信息
+请在使用前配置index.php和api.php开头部分的配置信息
+
+index.php带有前端界面
+
+api.php支持完整地API调用功能
 
 ## API
 
-id:文件ID（即分享地址的后面那一部分，如果地址是http://www.lanzous.com/xxxxxx，那么id就是xxxxxx）
+id:文件ID（即分享地址的后面那一部分，如果地址是http://xxx.lanzous.com/xxxxxx，那么id就是xxxxxx）
 
 url:蓝奏云外链链接
 
-type:是否直接下载 值：down
+type:返回数据方式（0、JSON返回；、返回链接；2、直接下载）
 
 pwd:外链密码
 
-info:文件备注
-
-name:文件名（建议仅在无法获取文件名时使用）
-
-### 直接下载：
-
-无密码：/api.php?url=https://www.lanzous.com/i1aesgj&type=down
-
-有密码：/api.php?url=https://www.lanzous.com/i19pnjc&type=down&pwd=1pud
-
-
-### 输出直链：
-
-无密码：/index.php?url=https://www.lanzous.com/i1aesgj
-
-       /index.php?id=i1aesgj
-
-有密码：/index.php?url=https://www.lanzous.com/i19pnjc&pwd=1pud
-
-       /index.php?id=i19pnjc&pwd=1pud
-
+token:访问密钥（可在api.php中设置）

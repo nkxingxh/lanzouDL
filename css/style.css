@@ -1,5 +1,5 @@
 body {
-  background:url(http://www.nkxingxh.top/img/b3.jpg);
+  background:url(../img/b3.jpg);
   
   color: #5b5b5b;
   font-family: "Open Sans", sans-serif;
@@ -126,30 +126,6 @@ a:hover, a:focus {
   vertical-align: top;
   word-break: break-all;
   text-align: left;
-}
-
-.ad-banner {
-  display: block;
-  margin: auto;
-  width: 468px;
-  height: 60px;
-  padding-top: 10px;
-}
-
-.ad-left {
-  position: absolute; 
-  left: 10px; 
-  top: 80px;
-  height: 600px;
-  width: 300px;
-}
-
-.ad-right {
-  position: absolute; 
-  right: 10px; 
-  top: 80px;
-  height: 600px;
-  width: 300px;
 }
 
 @media screen and (min-width: 500px) {

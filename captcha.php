@@ -30,7 +30,6 @@ for ($i = 0;$i < 4;$i++) {
     $data = 'asdfdfglfg74erf21854hgfhgfhkg4ljkghjtrtywiqpoqpwepdfgvnjytyut12313345645667686797800';
     $fontcontent = substr($data,rand(0,strlen($data)),1);
     $captch_code.= $fontcontent;
-
     $x = ($i*100/4)+ rand(5,10);
     $y = rand(5,10);
     imagestring($image,$fontsize,$x,$y,$fontcontent,$fontcolor);
@@ -50,8 +49,5 @@ for ($i = 0;$i < 3;$i++) {
 }
 header("content-type:image/png");
 imagepng($image);
-
 imagedestory($image);
-
-
 ?>
